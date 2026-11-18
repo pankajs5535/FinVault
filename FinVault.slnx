@@ -3,7 +3,9 @@
     <Project Path="FinVault.API/FinVault.API.csproj" />
     <Project Path="FinVault.Application/FinVault.Application.csproj" />
     <Project Path="FinVault.Domain/FinVault.Domain.csproj" />
+    <Project Path="FinVault.Infrastructure/FinVault.Infrastructure.csproj" Id="838b1cf4-bd38-4305-93c3-2089b80104b8" />
     <Project Path="FinVault.Persistence/FinVault.Persistence.csproj" />
+    <Project Path="FinVault.Shared/FinVault.Shared.csproj" Id="f87a6450-93cb-4bd6-aa9d-40c1b30e4659" />
   </Folder>
   <Folder Name="/Test/">
     <Project Path="FinVault.API.IntegrationTests/FinVault.API.IntegrationTests.csproj" />
