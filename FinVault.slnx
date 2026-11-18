@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Src/">
+    <Project Path="FinVault.API/FinVault.API.csproj" />
+    <Project Path="FinVault.Application/FinVault.Application.csproj" />
+    <Project Path="FinVault.Domain/FinVault.Domain.csproj" />
+    <Project Path="FinVault.Persistence/FinVault.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/Test/">
+    <Project Path="FinVault.API.IntegrationTests/FinVault.API.IntegrationTests.csproj" />
+    <Project Path="FinVault.API.UnitTests/FinVault.API.UnitTests.csproj" />
+  </Folder>
+</Solution>
