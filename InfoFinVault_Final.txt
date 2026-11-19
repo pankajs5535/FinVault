@@ -1,0 +1,23 @@
+Order	Module	Entity creation order
+1	Reference Data	Country, Currency
+2	Branch Management	Branch, Employee
+3	Customer & KYC	Customer, Address, KYCDetails, Document
+4	Account Management	AccountType, Account, AccountHolder
+5	Beneficiary	Beneficiary
+6	Transactions	TransactionType, Transaction, TransactionLimit
+7	Ledger	JournalEntry, JournalEntryLine
+8	Payments	PaymentMethod, PaymentRequest, PaymentGatewayLog
+9	Cards	Card, CardTransaction
+10	Loans	Loan, LoanSchedule, LoanRepayment
+11	Interest & Charges	InterestRate, InterestCalculation, Fee
+12	Refunds & Disputes	Refund, Dispute
+13	Reconciliation	ReconciliationBatch, ReconciliationRecord
+14	Fraud Detection	FraudRule, RiskAssessment, FraudAlert
+15	Notifications	NotificationTemplate, Notification
+16	Audit & Compliance	AuditLog, ComplianceRecord
+17	Reporting	ReportConfiguration
+18	AI	AIConversation, AIChatMessage, AIUsageLog
+19	Identity & Security	User, Role, Permission, RefreshToken
+
+
+
