@@ -21,3 +21,589 @@ Order	Module	Entity creation order
 
 
 
+Relation
+
+1. COUNTRY
+   PK: CountryId
+
+   Country 1:Many --> Branch
+     Branch FK: CountryId
+
+   Country 1:Many --> Address
+     Address FK: CountryId
+
+   Country 1:Many --> Customer
+     Customer FK: NationalityCountryId
+
+   Country 1:Many --> Currency
+     Currency FK: CountryId
+
+
+2. ROLE
+   PK: RoleId
+
+   Role 1:Many --> User
+     User FK: RoleId
+
+   Role Many:Many --> Permission
+     Join Table: RolePermissions
+     RolePermissions FK: RoleId
+     RolePermissions FK: PermissionId
+     Composite PK: RoleId + PermissionId
+
+
+3. PERMISSION
+   PK: PermissionId
+
+   Permission Many:Many --> Role
+     Join Table: RolePermissions
+     RolePermissions FK: PermissionId
+     RolePermissions FK: RoleId
+     Composite PK: RoleId + PermissionId
+
+
+4. USER
+   PK: UserId
+
+   User 1:Many --> RefreshToken
+     RefreshToken FK: UserId
+
+   User 1:1 --> Customer
+     Customer FK: UserId
+
+   User 1:1 --> Employee
+     Employee FK: UserId
+
+   User 1:Many --> Transaction
+     Transaction FK: InitiatedByUserId
+     Transaction FK: ApprovedByUserId
+
+   User 1:Many --> JournalEntry
+     JournalEntry FK: PostedByUserId
+
+   User 1:Many --> Refund
+     Refund FK: RequestedByUserId
+     Refund FK: ApprovedByUserId
+
+   User 1:Many --> ReconciliationBatch
+     ReconciliationBatch FK: InitiatedByUserId
+
+   User 1:Many --> ReconciliationRecord
+     ReconciliationRecord FK: ResolvedByUserId
+
+   User 1:Many --> Notification
+     Notification FK: UserId
+
+   User 1:Many --> AuditLog
+     AuditLog FK: UserId
+
+   User 1:Many --> ReportConfiguration
+     ReportConfiguration FK: OwnerUserId
+
+   User 1:Many --> AIConversation
+     AIConversation FK: UserId
+
+   User 1:Many --> AIUsageLog
+     AIUsageLog FK: UserId
+
+
+5. REFRESHTOKEN
+   PK: RefreshTokenId
+
+   RefreshToken 1:Many --> RefreshToken
+     RefreshToken FK: ReplacedByTokenId
+
+
+6. BRANCH
+   PK: BranchId
+
+   Branch 1:Many --> Branch
+     Branch FK: ParentBranchId
+
+   Branch 1:Many --> Customer
+     Customer FK: HomeBranchId
+
+   Branch 1:Many --> Employee
+     Employee FK: BranchId
+
+   Branch 1:Many --> Account
+     Account FK: BranchId
+
+   Branch 1:Many --> Loan
+     Loan FK: BranchId
+
+
+7. EMPLOYEE
+   PK: EmployeeId
+
+   Employee 1:Many --> Employee
+     Employee FK: ReportsToEmployeeId
+
+   Employee 1:Many --> Customer
+     Customer FK: RelationshipManagerId
+
+   Employee 1:Many --> KYCDetails
+     KYCDetails FK: VerifiedByEmployeeId
+
+   Employee 1:Many --> Document
+     Document FK: VerifiedByEmployeeId
+
+   Employee 1:Many --> Branch
+     Branch FK: ManagerEmployeeId
+
+   Employee 1:Many --> Loan
+     Loan FK: ApprovedByEmployeeId
+
+   Employee 1:Many --> Dispute
+     Dispute FK: AssignedToEmployeeId
+
+   Employee 1:Many --> FraudAlert
+     FraudAlert FK: ReviewedByEmployeeId
+
+   Employee 1:Many --> ComplianceRecord
+     ComplianceRecord FK: FiledByEmployeeId
+
+   Employee 1:Many --> AIConversation
+     AIConversation FK: EscalatedToEmployeeId
+
+
+8. CUSTOMER
+   PK: CustomerId
+
+   Customer 1:Many --> Address
+     Address FK: CustomerId
+
+   Customer 1:Many --> KYCDetails
+     KYCDetails FK: CustomerId
+
+   Customer 1:Many --> Document
+     Document FK: CustomerId
+
+   Customer 1:Many --> AccountHolder
+     AccountHolder FK: CustomerId
+
+   Customer 1:Many --> Beneficiary
+     Beneficiary FK: CustomerId
+
+   Customer 1:Many --> PaymentRequest
+     PaymentRequest FK: CustomerId
+
+   Customer 1:Many --> Card
+     Card FK: CustomerId
+
+   Customer 1:Many --> Loan
+     Loan FK: CustomerId
+
+   Customer 1:Many --> Dispute
+     Dispute FK: CustomerId
+
+   Customer 1:Many --> RiskAssessment
+     RiskAssessment FK: CustomerId
+
+   Customer 1:Many --> FraudAlert
+     FraudAlert FK: CustomerId
+
+   Customer 1:Many --> Notification
+     Notification FK: CustomerId
+
+   Customer 1:Many --> ComplianceRecord
+     ComplianceRecord FK: CustomerId
+
+   Customer 1:Many --> AIConversation
+     AIConversation FK: CustomerId
+
+
+9. ADDRESS
+   PK: AddressId
+
+   No business child relationships.
+
+
+10. KY CDETAILS
+    PK: KYCDetailsId
+
+    KYCDetails 1:Many --> Document
+      Document FK: KYCDetailsId
+
+
+11. DOCUMENT
+    PK: DocumentId
+
+    No business child relationships.
+
+
+12. ACCOUNTTYPE
+    PK: AccountTypeId
+
+    AccountType 1:Many --> Account
+      Account FK: AccountTypeId
+
+    AccountType 1:Many --> InterestRate
+      InterestRate FK: AccountTypeId
+
+    AccountType 1:Many --> Fee
+      Fee FK: AccountTypeId
+
+
+13. ACCOUNT
+    PK: AccountId
+
+    Account 1:Many --> Account
+      Account FK: PayoutAccountId
+
+    Account 1:Many --> AccountHolder
+      AccountHolder FK: AccountId
+
+    Account 1:Many --> Beneficiary
+      Beneficiary FK: InternalAccountId
+
+    Account 1:Many --> Transaction
+      Transaction FK: SourceAccountId
+      Transaction FK: DestinationAccountId
+
+    Account 1:Many --> JournalEntryLine
+      JournalEntryLine FK: AccountId
+
+    Account 1:Many --> PaymentRequest
+      PaymentRequest FK: SourceAccountId
+
+    Account 1:Many --> Card
+      Card FK: AccountId
+
+    Account 1:Many --> Loan
+      Loan FK: DisbursementAccountId
+      Loan FK: RepaymentAccountId
+
+    Account 1:Many --> InterestCalculation
+      InterestCalculation FK: AccountId
+
+    Account 1:Many --> RiskAssessment
+      RiskAssessment FK: AccountId
+
+    Account 1:Many --> FraudAlert
+      FraudAlert FK: AccountId
+
+    Account 1:Many --> ComplianceRecord
+      ComplianceRecord FK: AccountId
+
+
+14. ACCOUNTHOLDER
+    PK: AccountHolderId
+
+    No business child relationships.
+
+    Many:Many bridge between Customer and Account.
+
+
+15. BENEFICIARY
+    PK: BeneficiaryId
+
+    Beneficiary 1:Many --> PaymentRequest
+      PaymentRequest FK: BeneficiaryId
+
+
+16. TRANSACTIONTYPE
+    PK: TransactionTypeId
+
+    TransactionType 1:Many --> Transaction
+      Transaction FK: TransactionTypeId
+
+    TransactionType 1:Many --> Fee
+      Fee FK: TransactionTypeId
+
+
+17. TRANSACTION
+    PK: TransactionId
+
+    Transaction 1:Many --> Transaction
+      Transaction FK: ReversalOfTransactionId
+
+    Transaction 1:Many --> JournalEntry
+      JournalEntry FK: TransactionId
+
+    Transaction 1:1 --> PaymentRequest
+      PaymentRequest FK: TransactionId
+
+    Transaction 1:Many --> CardTransaction
+      CardTransaction FK: TransactionId
+
+    Transaction 1:Many --> LoanRepayment
+      LoanRepayment FK: TransactionId
+
+    Transaction 1:Many --> InterestCalculation
+      InterestCalculation FK: TransactionId
+
+    Transaction 1:Many --> Refund
+      Refund FK: OriginalTransactionId
+      Refund FK: RefundTransactionId
+
+    Transaction 1:Many --> Dispute
+      Dispute FK: TransactionId
+
+    Transaction 1:Many --> ReconciliationRecord
+      ReconciliationRecord FK: TransactionId
+
+    Transaction 1:Many --> RiskAssessment
+      RiskAssessment FK: TransactionId
+
+    Transaction 1:Many --> FraudAlert
+      FraudAlert FK: TransactionId
+
+    Transaction 1:Many --> ComplianceRecord
+      ComplianceRecord FK: TransactionId
+
+
+18. CURRENCY
+    PK: CurrencyId
+
+    Currency 1:Many --> Account
+      Account FK: CurrencyId
+
+    Currency 1:Many --> Transaction
+      Transaction FK: CurrencyId
+
+    Currency 1:Many --> JournalEntry
+      JournalEntry FK: CurrencyId
+
+    Currency 1:Many --> PaymentRequest
+      PaymentRequest FK: CurrencyId
+
+    Currency 1:Many --> CardTransaction
+      CardTransaction FK: CurrencyId
+
+
+19. JOURNALENTRY
+    PK: JournalEntryId
+
+    JournalEntry 1:Many --> JournalEntry
+      JournalEntry FK: ReversalOfJournalEntryId
+
+    JournalEntry 1:Many --> JournalEntryLine
+      JournalEntryLine FK: JournalEntryId
+
+    JournalEntry 1:Many --> InterestCalculation
+      InterestCalculation FK: JournalEntryId
+
+
+20. JOURNALENTRYLINE
+    PK: JournalEntryLineId
+
+    No business child relationships.
+
+
+21. PAYMENTMETHOD
+    PK: PaymentMethodId
+
+    PaymentMethod 1:Many --> PaymentRequest
+      PaymentRequest FK: PaymentMethodId
+
+    PaymentMethod 1:Many --> Fee
+      Fee FK: PaymentMethodId
+
+    PaymentMethod 1:Many --> ReconciliationBatch
+      ReconciliationBatch FK: PaymentMethodId
+
+
+22. PAYMENTREQUEST
+    PK: PaymentRequestId
+
+    PaymentRequest 1:Many --> PaymentGatewayLog
+      PaymentGatewayLog FK: PaymentRequestId
+
+
+23. PAYMENTGATEWAYLOG
+    PK: PaymentGatewayLogId
+
+    No business child relationships.
+
+
+24. CARD
+    PK: CardId
+
+    Card 1:Many --> CardTransaction
+      CardTransaction FK: CardId
+
+    Card 1:Many --> FraudAlert
+      FraudAlert FK: CardId
+
+
+25. CARDTRANSACTION
+    PK: CardTransactionId
+
+    CardTransaction 1:Many --> Dispute
+      Dispute FK: CardTransactionId
+
+
+26. LOAN
+    PK: LoanId
+
+    Loan 1:Many --> LoanSchedule
+      LoanSchedule FK: LoanId
+
+    Loan 1:Many --> LoanRepayment
+      LoanRepayment FK: LoanId
+
+    Loan 1:Many --> Document
+      Document FK: LoanId
+
+    Loan 1:Many --> InterestCalculation
+      InterestCalculation FK: LoanId
+
+
+27. LOANSCHEDULE
+    PK: LoanScheduleId
+
+    LoanSchedule 1:Many --> LoanRepayment
+      LoanRepayment FK: LoanScheduleId
+
+
+28. LOANREPAYMENT
+    PK: LoanRepaymentId
+
+    No business child relationships.
+
+
+29. INTERESTRATE
+    PK: InterestRateId
+
+    InterestRate 1:Many --> Loan
+      Loan FK: InterestRateId
+
+    InterestRate 1:Many --> InterestCalculation
+      InterestCalculation FK: InterestRateId
+
+
+30. INTERESTCALCULATION
+    PK: InterestCalculationId
+
+    No business child relationships.
+
+
+31. FEE
+    PK: FeeId
+
+    Fee 1:Many --> Transaction
+      Transaction FK: FeeId
+
+
+32. REFUND
+    PK: RefundId
+
+    No business child relationships.
+
+
+33. DISPUTE
+    PK: DisputeId
+
+    Dispute 1:Many --> Refund
+      Refund FK: DisputeId
+
+
+34. RECONCILIATIONBATCH
+    PK: ReconciliationBatchId
+
+    ReconciliationBatch 1:Many --> ReconciliationRecord
+      ReconciliationRecord FK: ReconciliationBatchId
+
+
+35. RECONCILIATIONRECORD
+    PK: ReconciliationRecordId
+
+    No business child relationships.
+
+
+36. FRAUDRULE
+    PK: FraudRuleId
+
+    FraudRule 1:Many --> FraudAlert
+      FraudAlert FK: FraudRuleId
+
+
+37. RISKASSESSMENT
+    PK: RiskAssessmentId
+
+    RiskAssessment 1:Many --> FraudAlert
+      FraudAlert FK: RiskAssessmentId
+
+
+38. FRAUDALERT
+    PK: FraudAlertId
+
+    FraudAlert 1:Many --> ComplianceRecord
+      ComplianceRecord FK: FraudAlertId
+
+
+39. NOTIFICATIONTEMPLATE
+    PK: NotificationTemplateId
+
+    NotificationTemplate 1:Many --> Notification
+      Notification FK: NotificationTemplateId
+
+
+40. NOTIFICATION
+    PK: NotificationId
+
+    No business child relationships.
+
+
+41. AUDITLOG
+    PK: AuditLogId
+
+    No business child relationships.
+
+
+42. COMPLIANCERECORD
+    PK: ComplianceRecordId
+
+    No business child relationships.
+
+
+43. REPORTCONFIGURATION
+    PK: ReportConfigurationId
+
+    No business child relationships.
+
+
+44. AICONVERSATION
+    PK: AIConversationId
+
+    AIConversation 1:Many --> AIChatMessage
+      AIChatMessage FK: AIConversationId
+
+    AIConversation 1:Many --> AIUsageLog
+      AIUsageLog FK: AIConversationId
+
+
+45. AICHATMESSAGE
+    PK: AIChatMessageId
+
+    AIChatMessage 1:Many --> AIUsageLog
+      AIUsageLog FK: AIChatMessageId
+
+
+46. AIUSAGELOG
+    PK: AIUsageLogId
+
+    No business child relationships.
+
+
+MANY-TO-MANY JOIN TABLE
+
+ROLEPERMISSIONS
+  Composite PK: RoleId + PermissionId
+  FK: RoleId --> Role.RoleId
+  FK: PermissionId --> Permission.PermissionId
+
+
+AUDIT FOREIGN KEYS
+
+  Entities with full audit:
+    CreatedBy --> User.UserId
+    UpdatedBy --> User.UserId
+
+  JournalEntryLine:
+    CreatedBy --> User.UserId
+
+  RefreshToken, PaymentGatewayLog, AuditLog,
+  AIChatMessage, AIUsageLog:
+    No CreatedBy / UpdatedBy relationships

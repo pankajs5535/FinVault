@@ -1,0 +1,79 @@
+﻿using FinVault.Application.Interface.IRepositories;
+using FinVault.Persistence.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using System.Text;
+
+namespace FinVault.Persistence.Repositories
+{
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    {
+        private readonly FinVaultDbContext _context;
+        public readonly DbSet<T> _dbSet;
+
+
+        public GenericRepository(FinVaultDbContext context)
+        {
+            _context = context;
+            _dbSet= context.Set<T>();//This gets the database table (more precisely, the EF Core DbSet<T>) corresponding to entity type T ,  If T = Country:
+        }
+
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        {
+            //return await _dbSet.ToListAsync();
+
+            //For read-only queries, we can use AsNoTracking() to reduce EF Core tracking overhead.
+
+            return await _dbSet.AsNoTracking().ToListAsync();
+
+        }
+
+        public virtual async Task<T?> GetByIdAsync(int id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
+        public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        {
+          return await _dbSet.Where(predicate).ToListAsync();
+        }
+
+        public virtual async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.AnyAsync(predicate);
+        }
+
+        public virtual async Task<int> CountAsync()
+        {
+            return await _dbSet.CountAsync();
+        }
+
+        public virtual async Task AddAsync(T entity)
+        {
+            await _dbSet.AddAsync(entity);
+        }
+
+        public virtual async Task AddRangeAsync(IEnumerable<T> entities)
+        {
+             await _dbSet.AddRangeAsync(entities);
+        }
+
+        public virtual async void Update(T entity)
+        {
+            _dbSet.Update(entity);
+        }
+
+        public virtual async void Delete(T entity)
+        {
+             _dbSet.Remove(entity);
+        }
+
+        public virtual void DeleteRange(IEnumerable<T> entities)
+        {
+             _dbSet.RemoveRange(entities);
+        }
+
+    }
+}

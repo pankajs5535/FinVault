@@ -12,4 +12,11 @@
 		<ProjectReference Include="..\FinVault.Shared\FinVault.Shared.csproj" />
 	</ItemGroup>
 
+	
+	<ItemGroup>
+	  <Folder Include="Interface\IServices\" />
+	  <Folder Include="Interface\IUnitOfWork\" />
+	  <Folder Include="Services\" />
+	</ItemGroup>
+
 </Project>

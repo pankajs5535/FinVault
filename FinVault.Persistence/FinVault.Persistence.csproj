@@ -20,4 +20,8 @@
 		<ProjectReference Include="..\FinVault.Domain\FinVault.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="UnitOfWork\" />
+	</ItemGroup>
+
 </Project>
