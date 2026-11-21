@@ -175,6 +175,10 @@ namespace FinVault.Persistence.Repositories
 
         // Retrieves authorized card transactions that have not yet been settled.
         // Useful for identifying transactions awaiting settlement processing.
+        /*Banking note: The unsettled query deliberately checks AuthorizationStatus == "Authorized" and SettledAt == null. 
+        Do not treat every authorised transaction as a posted account transaction.
+        Settlement and ledger posting must be coordinated by the payment workflow, with duplicate processing prevented using the unique RRN where available.
+        */
         public async Task<IEnumerable<CardTransaction>> GetUnsettledCardTransactionsAsync()
         {
             return await _dbSet.AsNoTracking()
