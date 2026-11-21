@@ -13,9 +13,8 @@ public class CountryRepository : GenericRepository<Country>, ICountryRepository
     {
     }
 
-    // =====================================================
     // 1. COUNTRY IDENTIFICATION
-    // =====================================================
+
 
     // Finds a country using its 2-letter ISO code.
     // Example: IN, US, GB.
@@ -59,9 +58,9 @@ public class CountryRepository : GenericRepository<Country>, ICountryRepository
             .ToListAsync();
     }
 
-    // =====================================================
+
     // 2. COUNTRY STATUS AND SEARCH
-    // =====================================================
+
 
     // Returns only active countries.
     // Used in customer, KYC, address and branch dropdowns.
@@ -119,9 +118,7 @@ public class CountryRepository : GenericRepository<Country>, ICountryRepository
             .ToListAsync();
     }
 
-    // =====================================================
     // 3. COUNTRY RELATIONSHIPS
-    // =====================================================
 
     // Returns countries that have associated bank branches.
     public async Task<IEnumerable<Country>> GetCountriesWithBranchesAsync()
@@ -162,9 +159,8 @@ public class CountryRepository : GenericRepository<Country>, ICountryRepository
             .FirstOrDefaultAsync(c => c.CountryId == countryId);
     }
 
-    // =====================================================
+
     // 4. COUNTRY VALIDATION AND USAGE
-    // =====================================================
 
     // Checks whether a country is referenced by customers,
     // addresses, branches or currencies.
