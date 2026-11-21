@@ -1,6 +1,8 @@
 ﻿using FinVault.Application.Interface.IRepositories;
+using FinVault.Application.Interface.IUnitOfWork;
 using FinVault.Persistence.Data;
 using FinVault.Persistence.Repositories;
+using FinVault.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace FinVault.API.Extensions;
@@ -135,6 +137,13 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IAuditLogRepository, AuditLogRepository>();
         services.AddScoped<IFeeRepository, FeeRepository>();
+
+        // 17. REPORT CONFIGURATION REPOSITORY
+        services.AddScoped<IReportConfigurationRepository, ReportConfigurationRepository>();
+
+        // 18. UNIT OF WORK
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }

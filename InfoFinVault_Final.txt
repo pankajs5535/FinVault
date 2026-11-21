@@ -19,7 +19,18 @@ Order	Module	Entity creation order
 18	AI	AIConversation, AIChatMessage, AIUsageLog
 19	Identity & Security	User, Role, Permission, RefreshToken
 
-
+// 1. DOMAIN ENTITIES
+// 2. ENTITY CONFIGURATIONS
+// 3. REPOSITORIES
+// 4. UNIT OF WORK
+// 5. DTOs
+// 6. MAPPING (AutoMapper / Manual Mapping)
+// 7. SERVICE INTERFACES
+// 8. SERVICE IMPLEMENTATIONS
+// 9. SERVICE DI REGISTRATION
+// 10. API CONTROLLERS
+// 11. AUTHENTICATION AND AUTHORIZATION
+// 12. TESTING
 
 Relation
 
