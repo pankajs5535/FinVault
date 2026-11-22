@@ -335,8 +335,16 @@ namespace FinVault.Persistence.UnitOfWork
         // 35. DISPOSE DATABASE RESOURCES
         // ============================================================
 
-        // Disposes the active transaction when the Unit of Work is released.
-        // Useful for ensuring database transaction resources are not left open.
+        // Disposes the active transaction synchronously.
+        // Useful for releasing database transaction resources when the Unit of Work is disposed.
+        public void Dispose()
+        {
+            _transaction?.Dispose();
+            _transaction = null;
+        }
+
+        // Disposes the active transaction asynchronously.
+        // Useful for releasing database transaction resources without blocking the calling thread.
         public async ValueTask DisposeAsync()
         {
             if (_transaction != null)
