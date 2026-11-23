@@ -1,0 +1,35 @@
+using AutoMapper;
+using FinVault.Domain.Entities;
+using FinVault.Application.DTOs.AccountHolderDtos;
+
+namespace FinVault.Application.Mapping;
+
+/// <summary>Maps AccountHolder DTOs to and from the AccountHolder domain entity.</summary>
+public sealed class AccountHolderMappingProfile : Profile
+{
+    public AccountHolderMappingProfile()
+    {
+        // Create: database keys, audit fields, concurrency tokens, and navigation graphs are managed by the application.
+        CreateMap<CreateAccountHolderDto, AccountHolder>()
+            .ForMember(dest => dest.AccountHolderId, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+            .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.UpdatedBy, opt => opt.Ignore())
+            .ForMember(dest => dest.Account, opt => opt.Ignore())
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+
+        // Update: do not overwrite the entity key, audit metadata, concurrency token, or navigation graph.
+        CreateMap<UpdateAccountHolderDto, AccountHolder>()
+            .ForMember(dest => dest.AccountHolderId, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
+            .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+            .ForMember(dest => dest.UpdatedBy, opt => opt.Ignore())
+            .ForMember(dest => dest.Account, opt => opt.Ignore())
+            .ForMember(dest => dest.Customer, opt => opt.Ignore());
+
+        // Response: map matching entity and DTO properties by name.
+        CreateMap<AccountHolder, AccountHolderDto>();
+    }
+}
