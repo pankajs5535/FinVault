@@ -1,5 +1,6 @@
 ﻿using FinVault.Application.Interface.IRepositories;
 using FinVault.Application.Interface.IUnitOfWork;
+using FinVault.Application.Mapping;
 using FinVault.Persistence.Data;
 using FinVault.Persistence.Repositories;
 using FinVault.Persistence.UnitOfWork;
@@ -144,6 +145,9 @@ public static class ServiceCollectionExtensions
         // 18. UNIT OF WORK
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        //19. Register AutoMapper profiles from the Application assembly.
+        services.AddAutoMapper(cfg => { }, typeof(CountryMappingProfile).Assembly);
 
         return services;
     }

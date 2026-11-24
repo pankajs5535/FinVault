@@ -14,12 +14,6 @@
 
 
 	<ItemGroup>
-		<Folder Include="Interface\IServices\" />
-		<Folder Include="Services\" />
-	</ItemGroup>
-
-
-	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="17.0.0" />
 		<!--<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />-->
 	</ItemGroup>
