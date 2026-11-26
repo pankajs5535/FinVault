@@ -46,3 +46,6 @@ namespace FinVault.Application.Interfaces.Services
         Task<bool> CanCountryBeDeletedAsync(int countryId);
     }
 }
+
+//Business rules: ISO codes must be unique; prevent deletion when a country is referenced by customers, 
+//addresses, branches, or currencies; prevent inactive countries from being selected for new records.

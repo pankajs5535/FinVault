@@ -45,3 +45,6 @@ namespace FinVault.Application.Interfaces.Services
         Task<bool> CanCurrencyBeDeletedAsync(int currencyId);
     }
 }
+
+//Banking rules: Only one currency can be the base currency; currency codes and numeric codes must be unique;
+//prevent deletion or deactivation when existing accounts or transactions depend on the currency.

@@ -1,4 +1,5 @@
 ﻿using FinVault.Application.DTOs.AccountHolderDtos;
+using FinVault.Domain.Entities;
 
 namespace FinVault.Application.Interfaces.Services
 {
@@ -50,3 +51,11 @@ namespace FinVault.Application.Interfaces.Services
         Task<bool> CanCustomerOperateAccountAsync(int accountId, int customerId);
     }
 }
+
+
+//Banking rules:
+//-Prevent duplicate active account - holder relationships for the same account and customer.
+//- Enforce valid holder types: Primary, Joint, Guardian, AuthorizedSignatory.
+//- Validate effective dates; EffectiveTo cannot precede EffectiveFrom.
+//- Only active holders with CanOperate = true can operate accounts.
+//- Enforce the account's primary-holder and guardian rules before changes.

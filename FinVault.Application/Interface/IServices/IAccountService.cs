@@ -59,3 +59,10 @@ namespace FinVault.Application.Interfaces.Services
         Task<bool> CanAccountBeDeletedAsync(int accountId);
     }
 }
+
+
+//Banking rules:
+//-Never directly modify Balance, AvailableBalance, or HoldAmount through ordinary account CRUD; balance changes belong to the transaction/posting workflow.
+//- Enforce valid status transitions and prevent closing accounts with outstanding balances, holds, or pending transactions.
+//- Validate account number uniqueness, account type, branch, currency, and payout account.
+//- Preserve RowVersion concurrency checks during updates.

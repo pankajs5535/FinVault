@@ -1,4 +1,6 @@
 ﻿using FinVault.Application.DTOs.BranchDtos;
+using FinVault.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinVault.Application.Interfaces.Services
 {
@@ -58,3 +60,7 @@ namespace FinVault.Application.Interfaces.Services
         Task<bool> CanBranchBeDeletedAsync(int branchId);
     }
 }
+
+
+//Banking rules: IFSC must follow the Indian 11-character format; prevent circular branch hierarchies;
+//validate manager and parent branch assignments; do not delete branches referenced by customers, employees, accounts, or loans.

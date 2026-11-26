@@ -53,3 +53,8 @@ namespace FinVault.Application.Interfaces.Services
         Task<int> CountCustomerAccountsAsync(int customerId);
     }
 }
+
+
+//Banking rules: Enforce unique customer number, mobile number and email according to your business rules;
+//validate branch, country, user and relationship-manager references; preserve customer records with financial history rather than physically deleting them;
+//use RowVersion for concurrent updates.

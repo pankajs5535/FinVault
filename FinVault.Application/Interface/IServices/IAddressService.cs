@@ -48,3 +48,6 @@ namespace FinVault.Application.Interfaces.Services
         Task<bool> CanAddressBeDeletedAsync(int addressId);
     }
 }
+
+//Banking rules: A customer should have only one primary address. 
+//Address verification must record VerifiedAt. Validate customer and country existence, and preserve address history where required for KYC and compliance.
