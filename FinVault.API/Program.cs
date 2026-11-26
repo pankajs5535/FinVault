@@ -1,29 +1,45 @@
+
 using FinVault.API.Extensions;
+using FinVault.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Dependency Injection
+// 1. CONFIGURE LOGGING
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
+// 2. REGISTER CONTROLLERS AND VALIDATION FILTER
+builder.Services.AddScoped<ValidationFilter>();
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.AddService<ValidationFilter>();
+});
+
+// 3. DEPENDENCY INJECTION
 builder.Services.AddInfrastructure(builder.Configuration);
 
-// Controllers
-builder.Services.AddControllers();
-
-// SWAGGER - Required for Swagger UI
-builder.Services.AddEndpointsApiExplorer(); // Discovers API endpoints
-builder.Services.AddSwaggerGen();            // Registers Swagger generator
+// 4. SWAGGER
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// SWAGGER - Enable Swagger only in Development
+// 5. GLOBAL EXCEPTION HANDLING
+app.UseGlobalExceptionMiddleware();
+
+// 6. SWAGGER
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();    // Generates OpenAPI JSON
-    app.UseSwaggerUI();  // Opens interactive Swagger UI
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-// HTTP Pipeline
+// 7. HTTP PIPELINE
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

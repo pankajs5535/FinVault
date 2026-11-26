@@ -63,4 +63,4 @@ namespace FinVault.Application.Interfaces.Services
 //- Execute only approved query definitions or stored procedures; never execute free - form user SQL.
 //- Only authorized users can create, modify, schedule, or execute reports.
 //- Validate recipients and report parameters before execution.
-//- Enforce retention requirements, especially for regulatory reports.
+//- Enforce retention requirements, especially for regulatory reports

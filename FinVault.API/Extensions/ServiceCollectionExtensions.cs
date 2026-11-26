@@ -5,6 +5,13 @@ using FinVault.Persistence.Data;
 using FinVault.Persistence.Repositories;
 using FinVault.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using FinVault.Application.Interfaces.Services;
+
+using FinVault.API.Filters; // Filteres
+
+using FluentValidation;                         // FluentValidation
+
+
 
 namespace FinVault.API.Extensions;
 
@@ -148,6 +155,12 @@ public static class ServiceCollectionExtensions
 
         //19. Register AutoMapper profiles from the Application assembly.
         services.AddAutoMapper(cfg => { }, typeof(CountryMappingProfile).Assembly);
+
+        // 20. Register FluentValidation validators from the Application assembly.
+        services.AddValidatorsFromAssembly(typeof(ICountryService).Assembly);
+
+        // 21. Register ValidationFilter.
+        services.AddScoped<ValidationFilter>();
 
         return services;
     }
