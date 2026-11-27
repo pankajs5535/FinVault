@@ -138,6 +138,12 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IPermissionRepository, PermissionRepository>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IAddressRepository, AddressRepository>();
+        services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddScoped<IAccountHolderRepository, AccountHolderRepository>();
+        services.AddScoped<IBeneficiaryRepository, BeneficiaryRepository>();
 
 
         // 16. AUDIT AND FEE REPOSITORIES
