@@ -1,4 +1,5 @@
-﻿using FinVault.API.Filters;
+﻿
+using FinVault.API.Filters;
 using FinVault.Application.Interface.IRepositories;
 using FinVault.Application.Interface.IServices;
 using FinVault.Application.Interface.IUnitOfWork;
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi;
 
 namespace FinVault.API.Extensions;
 
@@ -214,6 +216,35 @@ public static class ServiceCollectionExtensions
         // 34. VALIDATION FILTER
 
         services.AddScoped<ValidationFilter>();
+
+        // 35. SWAGGER JWT AUTHENTICATION
+
+        services.AddEndpointsApiExplorer();
+
+        services.AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "FinVault API",
+                Version = "v1",
+                Description = "Banking Management System API"
+            });
+
+            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                In = ParameterLocation.Header,
+                Description = "Enter your JWT access token."
+            });
+
+            options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+            {
+                [new OpenApiSecuritySchemeReference("Bearer", document)] = []
+            });
+        });
 
         return services;
     }

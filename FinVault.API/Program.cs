@@ -1,15 +1,16 @@
+
 using FinVault.API.Extensions;
 using FinVault.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. CONFIGURE LOGGING
+
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 
 // 2. REGISTER CONTROLLERS AND VALIDATION FILTER
-builder.Services.AddScoped<ValidationFilter>();
 
 builder.Services.AddControllers(options =>
 {
@@ -17,26 +18,28 @@ builder.Services.AddControllers(options =>
 });
 
 // 3. DEPENDENCY INJECTION
-builder.Services.AddInfrastructure(builder.Configuration);
 
-// 4. SWAGGER
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-// 5. GLOBAL EXCEPTION HANDLING
+// 4. GLOBAL EXCEPTION HANDLING
+
 app.UseGlobalExceptionMiddleware();
 
-// 6. SWAGGER
+// 5. SWAGGER
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// 7. HTTP PIPELINE
+// 6. HTTP PIPELINE
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
