@@ -11,7 +11,9 @@
 		<ProjectReference Include="..\FinVault.Domain\FinVault.Domain.csproj" />
 		<ProjectReference Include="..\FinVault.Shared\FinVault.Shared.csproj" />
 	</ItemGroup>
-
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="17.0.0" />

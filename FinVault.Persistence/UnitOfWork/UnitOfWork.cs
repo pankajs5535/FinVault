@@ -1,5 +1,6 @@
 ﻿using FinVault.Application.Interface.IRepositories;
 using FinVault.Application.Interface.IUnitOfWork;
+using FinVault.Domain.Entities;
 using FinVault.Persistence.Data;
 using FinVault.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -117,6 +118,7 @@ namespace FinVault.Persistence.UnitOfWork
             // 13. USER, ROLE AND PERMISSION REPOSITORIES
             // ============================================================
 
+            Employee = new EmployeeRepository(_context);
             User = new UserRepository(_context);
             Role = new RoleRepository(_context);
             Permission = new PermissionRepository(_context);
@@ -238,6 +240,7 @@ namespace FinVault.Persistence.UnitOfWork
         // 28. USER, ROLE AND PERMISSION REPOSITORY PROPERTIES
         // ============================================================
 
+        public IEmployeeRepository Employee { get; }
         public IUserRepository User { get; }
         public IRoleRepository Role { get; }
         public IPermissionRepository Permission { get; }

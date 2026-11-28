@@ -106,7 +106,7 @@ namespace FinVault.Application.Interface.IUnitOfWork
         // ============================================================
         // 13. USER, ROLE AND PERMISSION REPOSITORIES
         // ============================================================
-
+        IEmployeeRepository Employee { get; }
         IUserRepository User { get; }
         IRoleRepository Role { get; }
         IPermissionRepository Permission { get; }
